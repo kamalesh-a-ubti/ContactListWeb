@@ -1,0 +1,17 @@
+@model ContactListWeb.Models.Contact
+<h2>Edit Contact</h2>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" required />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="PhoneNo"></label>
+        <input asp-for="PhoneNo" required />
+        <span asp-validation-for="PhoneNo"></span>
+    </div>
+    <button type="submit">Update</button>
+    <a asp-action="Index">Cancel</a>
+</form>

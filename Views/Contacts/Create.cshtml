@@ -1,0 +1,16 @@
+@model ContactListWeb.Models.Contact
+<h2>Add New Contact</h2>
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" required />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="PhoneNo"></label>
+        <input asp-for="PhoneNo" required />
+        <span asp-validation-for="PhoneNo"></span>
+    </div>
+    <button type="submit">Add</button>
+    <a asp-action="Index">Cancel</a>
+</form>

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Contact List Web</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav>
+            <a asp-controller="Home" asp-action="Index">Home</a> @Html.Raw(" | ")
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Contacts" asp-action="Index">Contacts</a> @Html.Raw(" | ")
+                <a asp-controller="Auth" asp-action="Logout">Logout</a>
+            }
+            else
+            {
+                <a asp-controller="Auth" asp-action="Login">Login</a> @Html.Raw(" | ")
+                <a asp-controller="Auth" asp-action="Register">Register</a>
+            }
+        </nav>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+</body>
+</html>
