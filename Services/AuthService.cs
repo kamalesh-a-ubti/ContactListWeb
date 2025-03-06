@@ -29,7 +29,7 @@ namespace ContactListWeb.Services
             {
                 // Insert user into Users table and retrieve the new ID
                 var result = await _connection.ExecuteScalarAsync<int>(
-                    "INSERT INTO Users (Username, Password) VALUES (@Username, @Password); SELECT SCOPE_IDENTITY();",
+                    "INSERT INTO KAMAAA.Users1 (Username, Password) VALUES (@Username, @Password); SELECT SCOPE_IDENTITY();",
                     new { Username = username, Password = password });
                 return result > 0; // Returns true if insertion was successful
             }
@@ -47,7 +47,7 @@ namespace ContactListWeb.Services
             {
                 // Query for user with matching credentials
                 CurrentUser = await _connection.QueryFirstOrDefaultAsync<User>(
-                    "SELECT * FROM Users WHERE Username = @Username AND Password = @Password",
+                    "SELECT * FROM KAMAAA.Users1 WHERE Username = @Username AND Password = @Password",
                     new { Username = username, Password = password });
                 return CurrentUser != null; // Returns true if user is found
             }

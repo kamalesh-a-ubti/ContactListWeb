@@ -28,7 +28,7 @@ namespace ContactListWeb.Services
             try
             {
                 var result = await _connection.ExecuteAsync(
-                    "INSERT INTO Contacts (UserId, Name, PhoneNo) VALUES (@UserId, @Name, @PhoneNo)",
+                    "INSERT INTO KAMAAA.Contacts (UserId, Name, PhoneNo) VALUES (@UserId, @Name, @PhoneNo)",
                     new { UserId = _currentUserId, contact.Name, contact.PhoneNo });
                 return result > 0; // Returns true if contact was added
             }
@@ -45,7 +45,7 @@ namespace ContactListWeb.Services
             try
             {
                 var contacts = await _connection.QueryAsync<Contact>(
-                    "SELECT * FROM Contacts WHERE UserId = @UserId",
+                    "SELECT * FROM KAMAAA.Contacts WHERE UserId = @UserId",
                     new { UserId = _currentUserId });
                 return contacts.ToList();
             }
@@ -62,7 +62,7 @@ namespace ContactListWeb.Services
             try
             {
                 var affectedRows = await _connection.ExecuteAsync(
-                    @"UPDATE Contacts SET
+                    @"UPDATE KAMAAA.Contacts SET
                         Name = @Name,
                         PhoneNo = @PhoneNo
                     WHERE Id = @ContactId AND UserId = @UserId",
@@ -88,7 +88,7 @@ namespace ContactListWeb.Services
             try
             {
                 var affectedRows = await _connection.ExecuteAsync(
-                    "DELETE FROM Contacts WHERE Id = @Id AND UserId = @UserId",
+                    "DELETE FROM KAMAAA.Contacts WHERE Id = @Id AND UserId = @UserId",
                     new { Id = contactId, UserId = _currentUserId });
                 return affectedRows > 0; // Returns true if deletion was successful
             }
@@ -105,7 +105,7 @@ namespace ContactListWeb.Services
             try
             {
                 var results = await _connection.QueryAsync<Contact>(
-                    @"SELECT * FROM Contacts WHERE UserId = @UserId AND 
+                    @"SELECT * FROM KAMAAA.Contacts WHERE UserId = @UserId AND 
                     (Name LIKE @SearchTerm OR PhoneNo LIKE @SearchTerm)",
                     new { UserId = _currentUserId, SearchTerm = $"%{searchTerm}%" });
                 return results.ToList();
