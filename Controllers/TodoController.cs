@@ -165,6 +165,7 @@ namespace ContactListWeb.Controllers
         }
 
         // Helper method to get authenticated user ID
+        // ... (rest of the TodosController.cs remains unchanged)
         private int GetUserId()
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

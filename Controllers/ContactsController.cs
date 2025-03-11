@@ -28,6 +28,8 @@ namespace ContactListWeb.Controllers
         public async Task<IActionResult> Index()
         {
             var contacts = await _contactService.GetAllContactsAsync();
+            // Pass the JWT token to the view via ViewBag
+            ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken");
             return View(contacts);
         }
 

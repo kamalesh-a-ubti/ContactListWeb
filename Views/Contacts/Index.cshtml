@@ -69,6 +69,12 @@
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // Retrieve JWT token from session (injected via Razor)
+        const jwtToken = '@ViewBag.JwtToken';
+        if (!jwtToken) {
+            $('#errorMessage').html('Please log in to view todos.');
+            return;
+        }
         function fetchTodos() {
             const todoId = $('#todoId').val();
             let url = '/api/todos';
@@ -79,6 +85,7 @@
             $.ajax({
                 url: url,
                 type: 'GET',
+                headers: { 'Authorization': 'Bearer ' + jwtToken },
                 success: function (data) {
                     let html = '<ul class="list-group">';
                     if (Array.isArray(data)) {
@@ -113,6 +120,7 @@
                 url: '/api/todos',
                 type: 'POST',
                 contentType: 'application/json',
+                headers: { 'Authorization': 'Bearer ' + jwtToken },
                 data: JSON.stringify({ title: title, isCompleted: false }),
                 success: function (data) {
                     $('#todoTitle').val('');
@@ -129,6 +137,7 @@
                 url: `/api/todos/${id}`,
                 type: 'PUT',
                 contentType: 'application/json',
+                headers: { 'Authorization': 'Bearer ' + jwtToken },
                 data: JSON.stringify({ id: id, title: '', isCompleted: isCompleted }),
                 success: function () {
                     fetchTodos();
@@ -144,6 +153,7 @@
                 $.ajax({
                     url: `/api/todos/${id}`,
                     type: 'DELETE',
+                    headers: { 'Authorization': 'Bearer ' + jwtToken },
                     success: function () {
                         fetchTodos();
                     },
