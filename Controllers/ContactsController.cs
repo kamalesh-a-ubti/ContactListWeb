@@ -29,7 +29,7 @@ namespace ContactListWeb.Controllers
         {
             var contacts = await _contactService.GetAllContactsAsync();
             // Pass the JWT token to the view via ViewBag
-            ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken");
+            ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "NoToken";
             return View(contacts);
         }
 

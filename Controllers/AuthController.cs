@@ -35,6 +35,7 @@ namespace ContactListWeb.Controllers
                 var token = GenerateJwtToken(username, _authService.CurrentUser.Id);
                 HttpContext.Session.SetInt32("UserId", _authService.CurrentUser.Id); // Still using session for contact service
                 HttpContext.Session.SetString("JwtToken", token); // Store token in session for frontend use
+                Console.WriteLine("Token generated");
                 return RedirectToAction("Index", "Contacts");
             }
             ViewBag.Error = "Invalid credentials!";
@@ -85,6 +86,8 @@ namespace ContactListWeb.Controllers
                 signingCredentials: creds
             );
 
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+            Console.WriteLine("Generated Token: " + tokenString); // Debug log
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

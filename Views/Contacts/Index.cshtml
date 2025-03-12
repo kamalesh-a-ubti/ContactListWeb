@@ -70,23 +70,28 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // Retrieve JWT token from session (injected via Razor)
-        const jwtToken = '@ViewBag.JwtToken';
-        if (!jwtToken) {
-            $('#errorMessage').html('Please log in to view todos.');
-            return;
-        }
+
         function fetchTodos() {
+            const jwtToken = '@ViewBag.JwtToken';
+            console.log("JWT Token:", jwtToken);
+            if (!jwtToken) {
+                $('#errorMessage').html('Please log in to view todos.');
+                return;
+            }
             const todoId = $('#todoId').val();
             let url = '/api/todos';
             if (todoId) {
                 url += `/${todoId}`;
             }
+            console.log("Fetching Todos with URL:", url); // Debug URL
+            console.log("Using Token:", jwtToken); // Debug token
 
             $.ajax({
                 url: url,
                 type: 'GET',
                 headers: { 'Authorization': 'Bearer ' + jwtToken },
                 success: function (data) {
+                    console.log("Todos fetched:", data); // Debug response
                     let html = '<ul class="list-group">';
                     if (Array.isArray(data)) {
                         data.forEach(todo => {
@@ -104,6 +109,7 @@
                     $('#errorMessage').html('');
                 },
                 error: function (xhr, status, error) {
+                    console.log("Error fetching todos:", xhr.status, xhr.responseText);
                     handleAjaxError(xhr, status, error);
                 }
             });
